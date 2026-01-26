@@ -1,0 +1,3 @@
+[submodule "hzb/task/balance/balance_car_ws"]
+	path = hzb/task/balance/balance_car_ws
+	url = https://github.com/ABSCISSA921/balance_car.git
