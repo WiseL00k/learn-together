@@ -8,7 +8,13 @@ MATLAB 脚本推导出的是一个雅可比矩阵 **$J$** 的代数表达式。
 
 #### 它的物理意义是：
 
-当两个关节电机以速度 $\dot{q} = \begin{bmatrix} \dot{\theta}_1 \\ \dot{\theta}_4 \end{bmatrix}$ 旋转时，足端会以什么样的速度 $\dot{X} = \begin{bmatrix} \dot{x} \\ \dot{y} \end{bmatrix}$ 在空间中移动。
+当两个关节电机以速度：
+
+$\dot{q} = \begin{bmatrix} \dot{\theta}_1 \\ \dot{\theta}_4 \end{bmatrix}$
+
+旋转时，足端会以什么样的速度在空间移动：
+
+$\dot{X} = \begin{bmatrix} \dot{x} \\ \dot{y} \end{bmatrix}$
 
 #### 公式表示为：
 
@@ -32,8 +38,10 @@ $$
 
 ### **推导过程：**
 
-1. 假设足端在虚拟力 $F = \begin{bmatrix} F_x \\ F_y \end{bmatrix}$ 的拉动下，移动了一个极其微小的距离 $\delta X$。
-2. 同时，两个电机在扭矩 $\tau = \begin{bmatrix} \tau_1 \\ \tau_4 \end{bmatrix}$ 的驱动下，转动了极其微小的角度 $\delta q$。
+1. 假设足端在虚拟力的拉动下，移动了一个极其微小的距离 $\delta X$
+   $F = \begin{bmatrix} F_x \\ F_y \end{bmatrix}$
+2. 同时，两个电机在扭矩t的驱动下，转动了极其微小的角度 $\delta q$
+   $\tau = \begin{bmatrix} \tau_1 \\ \tau_4 \end{bmatrix}$
 3. 根据能量守恒定律，**电机做的功，等于足端做的功**：
    $$
    \tau^T \cdot \delta q = F^T \cdot \delta X
@@ -62,11 +70,14 @@ PID 算出了两个虚拟力：
 
 `force_y` 就是 $F_y$
 
-原矩阵是 $J = \begin{bmatrix} J_{11} & J_{12} \\ J_{21} & J_{22} \end{bmatrix}$。
+原矩阵是
+$J = \begin{bmatrix} J_{11} & J_{12} \\ J_{21} & J_{22} \end{bmatrix}$
 
-它的**转置矩阵**是把行列互换：$J^T = \begin{bmatrix} J_{11} & J_{21} \\ J_{12} & J_{22} \end{bmatrix}$
+它的**转置矩阵**是把行列互换：
+$J^T = \begin{bmatrix} J_{11} & J_{21} \\ J_{12} & J_{22} \end{bmatrix}$
 
 我们把力矩映射公式 $\tau = J^T \cdot F$ 展开：
+
 
 $$
 \begin{bmatrix} \tau_1 \\ \tau_4 \end{bmatrix} = \begin{bmatrix} J_{11} & J_{21} \\ J_{12} & J_{22} \end{bmatrix} \begin{bmatrix} F_x \\ F_y \end{bmatrix}
