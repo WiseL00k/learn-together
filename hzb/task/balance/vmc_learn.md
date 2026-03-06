@@ -10,11 +10,20 @@ MATLAB 脚本推导出的是一个雅可比矩阵 **$J$** 的代数表达式。
 
 当两个关节电机以速度：
 
-$\dot{q} = \begin{bmatrix} \dot{\theta}_1 \\ \dot{\theta}_4 \end{bmatrix}$
+$$
+\dot{q} = \begin{bmatrix} \dot{\theta}_1 \\ \dot{\theta}_4 \end{bmatrix}
+$$
 
 旋转时，足端会以什么样的速度在空间移动：
 
-$\dot{X} = \begin{bmatrix} \dot{x} \\ \dot{y} \end{bmatrix}$
+$$
+\dot{X} = \begin{bmatrix} \dot{x} \\ \dot{y} \end{bmatrix}
+$$
+
+$$
+
+
+$$
 
 #### 公式表示为：
 
@@ -39,24 +48,43 @@ $$
 ### **推导过程：**
 
 1. 假设足端在虚拟力的拉动下，移动了一个极其微小的距离 $\delta X$
-   $F = \begin{bmatrix} F_x \\ F_y \end{bmatrix}$
+
+   $$
+   F = \begin{bmatrix} F_x \\ F_y \end{bmatrix}
+   $$
 2. 同时，两个电机在扭矩t的驱动下，转动了极其微小的角度 $\delta q$
-   $\tau = \begin{bmatrix} \tau_1 \\ \tau_4 \end{bmatrix}$
-3. 根据能量守恒定律，**电机做的功，等于足端做的功**：
+
+   $$
+   \tau = \begin{bmatrix} \tau_1 \\ \tau_4 \end{bmatrix}
+   $$
+3. 根据能量守恒定律，电机做的功，等于足端做的功
+
    $$
    \tau^T \cdot \delta q = F^T \cdot \delta X
    $$
-4. 我们已知位移和角度的关系是由雅可比矩阵决定的：$\delta X = J \cdot \delta q$。
+4. 我们已知位移和角度的关系是由雅可比矩阵决定的：
+
+   $$
+   \delta X = J \cdot \delta q
+   $$
 5. 把这个代入上面的功的等式：
+
    $$
    \tau^T \cdot \delta q = F^T \cdot (J \cdot \delta q)
    $$
 6. 消去两边的 $\delta q$，再对两边取转置，就得到了整个 VMC 最核心的公式：
+
    $$
    \tau = J^T \cdot F
    $$
 
-**结论：** 雅可比矩阵不仅能正向翻译速度（$\dot{X} = J \cdot \dot{q}$），它的转置矩阵 **$J^T$** 还能反向翻译力矩
+**结论：** 雅可比矩阵不仅能正向翻译速度
+
+$$
+\dot{X} = J \cdot \dot{q}
+$$
+
+它的转置矩阵 **$J^T$** 还能反向翻译力矩
 
 ---
 
@@ -71,13 +99,25 @@ PID 算出了两个虚拟力：
 `force_y` 就是 $F_y$
 
 原矩阵是
-$J = \begin{bmatrix} J_{11} & J_{12} \\ J_{21} & J_{22} \end{bmatrix}$
+
+
+$$
+J = \begin{bmatrix} J_{11} & J_{12} \\ J_{21} & J_{22} \end{bmatrix}
+$$
+
+$$
+
+
+$$
 
 它的**转置矩阵**是把行列互换：
-$J^T = \begin{bmatrix} J_{11} & J_{21} \\ J_{12} & J_{22} \end{bmatrix}$
+
+
+$$
+J^T = \begin{bmatrix} J_{11} & J_{21} \\ J_{12} & J_{22} \end{bmatrix}
+$$
 
 我们把力矩映射公式 $\tau = J^T \cdot F$ 展开：
-
 
 $$
 \begin{bmatrix} \tau_1 \\ \tau_4 \end{bmatrix} = \begin{bmatrix} J_{11} & J_{21} \\ J_{12} & J_{22} \end{bmatrix} \begin{bmatrix} F_x \\ F_y \end{bmatrix}
@@ -95,7 +135,6 @@ $\tau_4 = J_{12} \cdot F_x + J_{22} \cdot F_y$
 double tau1 = J11 * force_x + J21 * force_y;
 double tau4 = J12 * force_x + J22 * force_y;
 ```
-
 
 ## 学习过程中产生的重要问题
 
@@ -155,11 +194,15 @@ double tau4 = J12 * force_x + J22 * force_y;
 
 **任务维度（2维）**：杯子只能在桌面上沿着 **\$X\$** 轴和 **\$Y\$** 轴移动。所以我们需要指尖产生一个二维平面的推力
 
-\$F = \\begin{bmatrix} F\_x \\\\ F\_y \\end{bmatrix}\$
+$$
+F = \begin{bmatrix} F_x \\ F_y \end{bmatrix}
+$$
 
 **关节维度（3维）**：手臂平放在桌面上时，能转动的关节有 3 个：**肩膀（电机1）、手肘（电机2）、手腕（电机3）**。所以需要输出 3 个扭矩
 
-\$\\tau = \\begin{bmatrix} \\tau\_1 \\\\ \\tau\_2 \\\\ \\tau\_3 \\end{bmatrix}\$
+$$
+\tau = \begin{bmatrix} \tau_1 \\ \tau_2 \\ \tau_3 \end{bmatrix}
+$$
 
 在这个系统中，雅可比矩阵的维度是 **\$2 \\times 3\$**，那么转置后的矩阵 **\$J^T\$** 就会变成一个 **\$3 \\times 2\$** 的矩阵。
 
