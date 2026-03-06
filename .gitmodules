@@ -1,3 +1,9 @@
 [submodule "hzb/task/balance/balance_car_ws"]
 	path = hzb/task/balance/balance_car_ws
 	url = https://github.com/ABSCISSA921/balance_car.git
+[submodule "src/five_link_car_ws"]
+	path = src/five_link_car_ws
+	url = https://github.com/ABSCISSA921/five_link_car_ws.git
+[submodule "hzb/task/balance/five_link_car_ws"]
+	path = hzb/task/balance/five_link_car_ws
+	url = https://github.com/ABSCISSA921/five_link_car_ws.git
